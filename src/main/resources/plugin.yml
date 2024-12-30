@@ -1,0 +1,20 @@
+name: KiraSMP
+version: 1.0
+main: np.com.birajrai.KiraSMP
+api-version: 1.21
+commands:
+  sethome:
+    description: Set your home location.
+  home:
+    description: Teleport to your home location.
+  spawn:
+    description: Teleport to the world spawn point.
+  tpa:
+    description: Request to teleport to another player.
+    usage: /tpa <player>
+  tpaccept:
+    description: Accept a teleportation request.
+  weathervote:
+    description: Vote to change the weather.
+  sleepvote:
+    description: Vote to skip the night.

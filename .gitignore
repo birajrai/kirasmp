@@ -1,0 +1,5 @@
+
+/.idea
+/target/maven-archiver
+/target/maven-status
+target/original-kirasmp-1.0-SNAPSHOT.jar
