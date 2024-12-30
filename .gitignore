@@ -2,9 +2,4 @@
 /.idea
 /target/maven-archiver
 /target/maven-status
-target/original-kirasmp-1.0-SNAPSHOT.jar
-/target/classes
-/target/classes
-/target/classes
-target/kirasmp-1.0-SNAPSHOT-shaded.jar
 /target/classes

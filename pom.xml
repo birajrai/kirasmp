@@ -6,7 +6,7 @@
 
     <groupId>np.com.birajrai</groupId>
     <artifactId>kirasmp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>v1.0</version>
     <packaging>jar</packaging>
 
     <name>kirasmp</name>
