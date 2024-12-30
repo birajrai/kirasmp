@@ -1,0 +1,4 @@
+# KiraSMP Data File
+homes: {} # This will store player homes in the format:
+# homes:
+#   playerUUID: location
