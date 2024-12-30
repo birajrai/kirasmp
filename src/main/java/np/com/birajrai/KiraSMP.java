@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.ChatColor; // Import ChatColor
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class KiraSMP extends JavaPlugin {
+
+    private static final String PREFIX = ChatColor.GREEN + "[KiraSMP] " + ChatColor.RESET; // Define prefix with color
 
     private final HashMap<UUID, Location> playerHomes = new HashMap<>();
     private final HashSet<UUID> sleepVoters = new HashSet<>();
@@ -53,7 +56,7 @@ public class KiraSMP extends JavaPlugin {
         File configFile = new File(getDataFolder(), "config.yml");
         if (!configFile.exists()) {
             saveDefaultConfig(); // This method saves the default config from the jar
-            getLogger().info("config.yml created!");
+            getLogger().info(PREFIX + "config.yml created!");
         }
 
         // Set up the data file
@@ -61,9 +64,9 @@ public class KiraSMP extends JavaPlugin {
         if (!dataFile.exists()) {
             try {
                 dataFile.createNewFile();
-                getLogger().info("data.yml created!");
+                getLogger().info(PREFIX + "data.yml created!");
             } catch (IOException e) {
-                getLogger().severe("Could not create data.yml!");
+                getLogger().severe(PREFIX + "Could not create data.yml!");
                 e.printStackTrace();
             }
         }
@@ -88,7 +91,7 @@ public class KiraSMP extends JavaPlugin {
         try {
             dataConfig.save(dataFile);
         } catch (IOException e) {
-            getLogger().severe("Could not save homes to data.yml!");
+            getLogger().severe(PREFIX + "Could not save homes to data.yml!");
             e.printStackTrace();
         }
     }
@@ -96,7 +99,7 @@ public class KiraSMP extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Only players can use this command.");
+            sender.sendMessage(PREFIX + ChatColor.RED + "Only players can use this command."); // Use prefix
             return true;
         }
 
@@ -106,21 +109,21 @@ public class KiraSMP extends JavaPlugin {
         switch (command.getName().toLowerCase()) {
             case "sethome":
                 playerHomes.put(player.getUniqueId(), player.getLocation());
-                player.sendMessage("Home set successfully!");
+                player.sendMessage(PREFIX + ChatColor.GREEN + "Home set successfully!"); // Use prefix
                 return true;
 
             case "home":
                 if (playerHomes.containsKey(player.getUniqueId())) {
                     player.teleport(playerHomes.get(player.getUniqueId()));
-                    player.sendMessage("Teleported to home!");
+                    player.sendMessage(PREFIX + ChatColor.GREEN + "Teleported to home!"); // Use prefix
                 } else {
-                    player.sendMessage("You haven't set a home yet. Use /sethome.");
+                    player.sendMessage(PREFIX + ChatColor.RED + "You haven't set a home yet. Use /sethome."); // Use prefix
                 }
                 return true;
 
             case "spawn":
                 player.teleport(world.getSpawnLocation());
-                player.sendMessage("Teleported to spawn!");
+                player.sendMessage(PREFIX + ChatColor.GREEN + "Teleported to spawn!"); // Use prefix
                 return true;
 
             case "tpa":
@@ -128,13 +131,13 @@ public class KiraSMP extends JavaPlugin {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null && target.isOnline()) {
                         teleportRequests.put(target.getUniqueId(), player.getUniqueId());
-                        target.sendMessage(player.getName() + " has requested to teleport to you. Type /tpaccept to accept.");
-                        player.sendMessage("Teleport request sent to " + target.getName() + ".");
+                        target.sendMessage(PREFIX + ChatColor.YELLOW + player.getName() + " has requested to teleport to you. Type /tpaccept to accept."); // Use prefix
+                        player.sendMessage(PREFIX + ChatColor.YELLOW + "Teleport request sent to " + target.getName() + "."); // Use prefix
                     } else {
-                        player.sendMessage("Player not found or offline.");
+                        player.sendMessage(PREFIX + ChatColor.RED + "Player not found or offline."); // Use prefix
                     }
                 } else {
-                    player.sendMessage("Usage: /tpa <player>");
+                    player.sendMessage(PREFIX + ChatColor.RED + "Usage: /tpa <player>"); // Use prefix
                 }
                 return true;
 
@@ -144,13 +147,13 @@ public class KiraSMP extends JavaPlugin {
                     Player requester = Bukkit.getPlayer(requesterId);
                     if (requester != null && requester.isOnline()) {
                         requester.teleport(player.getLocation());
-                        requester.sendMessage("Teleport request accepted by " + player.getName() + ".");
-                        player.sendMessage("Teleport request accepted.");
+                        requester.sendMessage(PREFIX + ChatColor.GREEN + "Teleport request accepted by " + player.getName() + "."); // Use prefix
+                        player.sendMessage(PREFIX + ChatColor.GREEN + "Teleport request accepted."); // Use prefix
                     } else {
-                        player.sendMessage("Requester is no longer online.");
+                        player.sendMessage(PREFIX + ChatColor.RED + "Requester is no longer online."); // Use prefix
                     }
                 } else {
-                    player.sendMessage("No teleport requests to accept.");
+                    player.sendMessage(PREFIX + ChatColor.RED + "No teleport requests to accept."); // Use prefix
                 }
                 return true;
 
@@ -159,10 +162,10 @@ public class KiraSMP extends JavaPlugin {
                 int weatherVotes = weatherVoters.size();
                 if (weatherVotes >= Bukkit.getOnlinePlayers().size() / 2) {
                     world.setStorm(!world.hasStorm());
-                    Bukkit.broadcastMessage("Weather changed by vote!");
+                    Bukkit.broadcastMessage(PREFIX + ChatColor.GREEN + "Weather changed by vote!"); // Use prefix
                     weatherVoters.clear();
                 } else {
-                    player.sendMessage("Vote registered. Current votes: " + weatherVotes);
+                    player.sendMessage(PREFIX + ChatColor.YELLOW + "Vote registered. Current votes: " + weatherVotes); // Use prefix
                 }
                 return true;
 
@@ -171,10 +174,10 @@ public class KiraSMP extends JavaPlugin {
                 int sleepVotes = sleepVoters.size();
                 if (sleepVotes >= Bukkit.getOnlinePlayers().size() / 2) {
                     world.setTime(0);
-                    Bukkit.broadcastMessage("Night skipped by vote!");
+                    Bukkit.broadcastMessage(PREFIX + ChatColor.GREEN + "Night skipped by vote!"); // Use prefix
                     sleepVoters.clear();
                 } else {
-                    player.sendMessage("Vote registered. Current votes: " + sleepVotes);
+                    player.sendMessage(PREFIX + ChatColor.YELLOW + "Vote registered. Current votes: " + sleepVotes); // Use prefix
                 }
                 return true;
 
