@@ -29,22 +29,43 @@ public class KiraSMP extends JavaPlugin {
     @Override
     public void onEnable() {
         getLogger().info("Plugin Enabled!");
-        createDataFile();
+        createConfigAndDataFiles();
         loadHomes();
-        saveDefaultConfig();
     }
 
     @Override
     public void onDisable() {
-        saveHomes();
+        if (dataConfig != null) { // Ensure dataConfig is not null before saving
+            saveHomes();
+        } else {
+            getLogger().warning("dataConfig is null, skipping save!");
+        }
         getLogger().info("Plugin Disabled!");
     }
 
-    private void createDataFile() {
+    private void createConfigAndDataFiles() {
+        // Ensure the plugin's data folder exists
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
+
+        // Set up the config file
+        File configFile = new File(getDataFolder(), "config.yml");
+        if (!configFile.exists()) {
+            saveDefaultConfig(); // This method saves the default config from the jar
+            getLogger().info("config.yml created!");
+        }
+
+        // Set up the data file
         dataFile = new File(getDataFolder(), "data.yml");
         if (!dataFile.exists()) {
-            dataFile.getParentFile().mkdirs();
-            saveResource("data.yml", false);
+            try {
+                dataFile.createNewFile();
+                getLogger().info("data.yml created!");
+            } catch (IOException e) {
+                getLogger().severe("Could not create data.yml!");
+                e.printStackTrace();
+            }
         }
         dataConfig = YamlConfiguration.loadConfiguration(dataFile);
     }
