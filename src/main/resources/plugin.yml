@@ -1,20 +1,84 @@
 name: KiraSMP
-version: 1.0
+version: '2.0'
 main: np.com.birajrai.KiraSMP
-api-version: 1.21
+api-version: '1.21'
+description: A KiraSMP plugin with essential features and XP economy
+author: birajrai
+
 commands:
   sethome:
-    description: Set your home location.
+    description: Set your home location
+    usage: /sethome
+    permission: kirasmp.home.set
   home:
-    description: Teleport to your home location.
-  spawn:
-    description: Teleport to the world spawn point.
+    description: Teleport to your home
+    usage: /home
+    permission: kirasmp.home.teleport
   tpa:
-    description: Request to teleport to another player.
+    description: Send a teleport request to another player
     usage: /tpa <player>
+    permission: kirasmp.tpa
   tpaccept:
-    description: Accept a teleportation request.
+    description: Accept a pending teleport request
+    usage: /tpaccept
+    permission: kirasmp.tpa.accept
+  addwarp:
+    description: Create a new warp point
+    usage: /addwarp <name>
+    permission: kirasmp.warp.create
+  warp:
+    description: Teleport to a warp point
+    usage: /warp <name>
+    permission: kirasmp.warp.use
+  warps:
+    description: List all available warps
+    usage: /warps
+    permission: kirasmp.warp.list
+  rtp:
+    description: Teleport to a random location
+    usage: /rtp
+    permission: kirasmp.rtp
   weathervote:
-    description: Vote to change the weather.
+    description: Vote to change the weather
+    usage: /weathervote
+    permission: kirasmp.vote.weather
   sleepvote:
-    description: Vote to skip the night.
+    description: Vote to skip the night
+    usage: /sleepvote
+    permission: kirasmp.vote.sleep
+  skin:
+    description: Change your skin to another player's skin
+    usage: /skin <playername>
+    permission: kirasmp.skin
+
+permissions:
+  kirasmp.*:
+    description: Gives access to all KiraSMP commands
+    children:
+      kirasmp.home.*: true
+      kirasmp.tpa.*: true
+      kirasmp.warp.*: true
+      kirasmp.rtp: true
+      kirasmp.vote.*: true
+      kirasmp.skin: true
+  kirasmp.home.*:
+    description: Gives access to all home commands
+    children:
+      kirasmp.home.set: true
+      kirasmp.home.teleport: true
+  kirasmp.tpa.*:
+    description: Gives access to all teleport commands
+    children:
+      kirasmp.tpa: true
+      kirasmp.tpa.accept: true
+  kirasmp.warp.*:
+    description: Gives access to all warp commands
+    children:
+      kirasmp.warp.create: true
+      kirasmp.warp.use: true
+      kirasmp.warp.list: true
+  kirasmp.vote.*:
+    description: Gives access to all vote commands
+    children:
+      kirasmp.vote.weather: true
+      kirasmp.vote.sleep: true

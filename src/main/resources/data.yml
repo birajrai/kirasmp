@@ -1,4 +1,3 @@
-# KiraSMP Data File
-homes: {} # This will store player homes in the format:
-# homes:
-#   playerUUID: location
+# KiraSMP Data Storage
+homes: {}  # Stores player homes
+warps: {}  # Stores warps with their names and locations

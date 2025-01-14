@@ -1,6 +1,88 @@
-# KiraSMP Configuration File
-settings:
-  enableHomes: true         # Whether players can set homes
-  maxHomes: 5               # Maximum number of homes a player can set
-  weatherVoteThreshold: 0.5 # Percentage of players required to change weather
-  sleepVoteThreshold: 0.5   # Percentage of players required to skip night
+# KiraSMP Configuration
+# Plugin Version: 2.0
+
+# Plugin prefix settings
+prefix:
+  enabled: true
+  text: "&a[KiraSMP]&r"
+
+# Experience economy settings
+economy:
+  # Cost in experience levels for different actions
+  costs:
+    set-home: 1
+    create-warp: 5
+    use-warp: 1
+    change-skin: 2
+
+  # Whether to show XP cost messages
+  show-cost-messages: true
+
+# Teleport settings
+teleport:
+  request-expiry: 60
+  cooldown: 30
+  max-distance: -1
+
+# Random teleport (RTP) settings
+rtp:
+  max-distance: 5000
+  min-distance: 100
+  cooldown: 300
+  cost: 2  # Experience levels needed for RTP
+  blocked-biomes:
+    - OCEAN
+    - DEEP_OCEAN
+    - FROZEN_OCEAN
+    - DEEP_FROZEN_OCEAN
+
+# Home settings
+homes:
+  max-homes: 1
+  cooldown: 30
+
+# Warp settings
+warps:
+  allow-player-create: true
+  cooldown: 30
+
+# Vote settings
+voting:
+  weather:
+    required-percentage: 50
+    cooldown: 300
+    min-players: 2
+    reward-levels: 1  # XP levels rewarded for successful vote
+
+  sleep:
+    required-percentage: 50
+    cooldown: 300
+    min-players: 2
+    reward-levels: 1  # XP levels rewarded for successful vote
+
+# Skin change settings
+skin:
+  enabled: true
+  cooldown: 300
+  daily-limit: 5
+
+# Messages
+messages:
+  insufficient-xp: "&cYou need %levels% experience levels to do this!"
+  xp-deducted: "&aYou spent %levels% experience levels."
+  xp-reward: "&aYou received %levels% experience levels!"
+  no-permission: "&cYou don't have permission to use this command!"
+  cooldown: "&cPlease wait %time% seconds before using this command again."
+  teleport-request-sent: "&aYou have sent a teleport request to %player%."
+  teleport-request-received: "&a%player% has requested to teleport to you. Type /tpaccept to accept."
+  teleport-success: "&aYou have been teleported!"
+  teleport-expired: "&cTeleport request has expired."
+  home-set: "&aHome set successfully!"
+  home-teleport: "&aYou have been teleported to your home."
+  warp-created: "&aWarp %warp% has been created!"
+  warp-teleport: "&aYou have been teleported to warp %warp%."
+  warp-not-found: "&cWarp %warp% does not exist."
+  vote-weather-broadcast: "&aWeather has been changed due to voting!"
+  vote-sleep-broadcast: "&aTime has been set to day due to voting!"
+  skin-changed: "&aYour skin has been changed to %player%'s skin!"
+  skin-error: "&cCould not change your skin. Please try again later."
