@@ -50,35 +50,4 @@ commands:
     description: Change your skin to another player's skin
     usage: /skin <playername>
     permission: kirasmp.skin
-
-permissions:
-  kirasmp.*:
-    description: Gives access to all KiraSMP commands
-    children:
-      kirasmp.home.*: true
-      kirasmp.tpa.*: true
-      kirasmp.warp.*: true
-      kirasmp.rtp: true
-      kirasmp.vote.*: true
-      kirasmp.skin: true
-  kirasmp.home.*:
-    description: Gives access to all home commands
-    children:
-      kirasmp.home.set: true
-      kirasmp.home.teleport: true
-  kirasmp.tpa.*:
-    description: Gives access to all teleport commands
-    children:
-      kirasmp.tpa: true
-      kirasmp.tpa.accept: true
-  kirasmp.warp.*:
-    description: Gives access to all warp commands
-    children:
-      kirasmp.warp.create: true
-      kirasmp.warp.use: true
-      kirasmp.warp.list: true
-  kirasmp.vote.*:
-    description: Gives access to all vote commands
-    children:
-      kirasmp.vote.weather: true
-      kirasmp.vote.sleep: true
+    
